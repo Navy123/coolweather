@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.oguri.coolweather.model.City;
 import com.example.oguri.coolweather.model.County;
@@ -69,6 +70,7 @@ public class CoolWeatherDB {
     public List<City> loadCities(int provinceId) {
 
         List<City> list = new ArrayList<>();
+        int count=0;
         Cursor cursor = db.query("City", null, "province_id=?", new String[]{String.valueOf(provinceId)}, null, null, null);
         if (cursor.moveToFirst())
             do {
@@ -77,7 +79,9 @@ public class CoolWeatherDB {
                 city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
                 city.setProvinceId(provinceId);
                 list.add(city);
+                count++;
             } while (cursor.moveToNext());
+        Log.d("loadcity",String.valueOf(count));
         if(cursor!=null)
             cursor.close();
         return list;
@@ -87,6 +91,7 @@ public class CoolWeatherDB {
             ContentValues contentValues = new ContentValues();
             contentValues.put("county_name", county.getCountyName());
             contentValues.put("city_id",county.getCityId());
+            contentValues.put("weather_code",county.getWeatherCode());
             db.insert("County", null, contentValues);
         }
     }
@@ -101,6 +106,7 @@ public class CoolWeatherDB {
                 county.setId(cursor.getInt(cursor.getColumnIndex("id")));
                 county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
                 county.setCityId(cityId);
+                county.setWeatherCode(cursor.getString(cursor.getColumnIndex("weather_code")));
                 list.add(county);
             } while (cursor.moveToNext());
         if(cursor!=null)

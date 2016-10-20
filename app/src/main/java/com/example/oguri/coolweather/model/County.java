@@ -7,6 +7,7 @@ public class County {
     private int id;
     private String countyName;
     private int cityId;
+    private String weatherCode;
 
     public int getId() {
         return id;
@@ -30,5 +31,13 @@ public class County {
 
     public void setCityId(int cityId) {
         this.cityId = cityId;
+    }
+
+    public String getWeatherCode() {
+        return weatherCode;
+    }
+
+    public void setWeatherCode(String weatherCode) {
+        this.weatherCode = weatherCode;
     }
 }
