@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.oguri.coolweather.R;
+import com.example.oguri.coolweather.service.AutoUpdateService;
 import com.example.oguri.coolweather.util.HttpCallbackListener;
 import com.example.oguri.coolweather.util.HttpUtil;
 import com.example.oguri.coolweather.util.MyApplication;
@@ -90,6 +91,9 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         tempText.setText(temp);
         weatherDespText.setText(desc);
         publishText.setText(publishTime);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     @Override
